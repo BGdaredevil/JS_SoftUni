@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starwars</title>
+  </head>
+  <style>
+    * {
+      background-color: teal;
+    }
+  </style>
+  <body>
+    <h1>in a galaxy far away</h1>
+    <h2>favorite character</h2>
+    <strong id="charName">Unknown</strong>
+    <button id="getChar">get</button>
+    <script>
+      document.getElementById("getChar").onclick = function ivan() {
+        setTimeout(function () {
+          ivan();
+          fetch("https://swapi.dev/api/people/" + Math.ceil(Math.random() * 85))
+            .then((res) => res.json())
+            .then((char) => {
+              document.getElementById("charName").textContent = char.name;
+            });
+        }, 1000);
+      };
+    </script>
+  </body>
+</html>
