@@ -1,5 +1,4 @@
 function solve() {
-  let [mName, mHall, mPrice] = document.getElementsByTagName("input");
   let buttonAdd = document.querySelector("div#container > button");
   buttonAdd.type = "button";
   buttonAdd.addEventListener("click", addToScreen);
@@ -29,14 +28,15 @@ function solve() {
     let total;
     if (e.target.tagName === "BUTTON") {
       let ticketCount = e.target.previousElementSibling;
-      if (Number(ticketCount.value)) {
-        let price = Number(ticketCount.previousElementSibling.innerText);
-        total = ticketCount.value * price;
-      } else {
+      let tCount = ticketCount.value;
+      if (tCount === null || tCount === undefined || isNaN(tCount) || !tCount) {
         return;
       }
+      let price = Math.ceil(
+        Number(ticketCount.previousElementSibling.innerText)
+      );
+      total = tCount * price;
 
-      console.log(e.target);
       let name =
         ticketCount.parentElement.previousElementSibling.previousElementSibling
           .innerText;
@@ -56,7 +56,9 @@ function solve() {
     }
   }
 
-  function addToScreen() {
+  function addToScreen(e) {
+    e.preventDefault();
+    let [mName, mHall, mPrice] = document.getElementsByTagName("input");
     let validInput = getAndValidate(mName, mHall, mPrice);
     if (!validInput) {
       return;
@@ -76,6 +78,9 @@ function solve() {
     );
 
     document.querySelector("section#movies > ul").appendChild(result);
+    mName.value = "";
+    mHall.value = "";
+    mPrice.value = "";
   }
 
   function getAndValidate(str1, str2, num) {
