@@ -33,4 +33,3 @@ function solve(face, suit) {
     },
   };
 }
-console.log(new solve("A", "S").toString());
