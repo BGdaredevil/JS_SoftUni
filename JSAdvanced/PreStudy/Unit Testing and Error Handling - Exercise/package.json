@@ -1,0 +1,17 @@
+{
+  "name": "unit-testing-exercises-ex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "02. Even Or Odd.js",
+  "dependencies": {
+    "chai": "^4.3.4"
+  },
+  "devDependencies": {
+    "mocha": "^8.3.2"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC"
+}
