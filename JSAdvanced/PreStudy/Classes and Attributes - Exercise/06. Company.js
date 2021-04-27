@@ -1,62 +1,57 @@
 class Company {
   constructor() {
-    this.departments = [];
+    this.departmentsList = {};
   }
 
-  addEmployee(username, salary, position, dep) {
-    if (!username || !salary || !position || !dep || salary < 0) {
-      throw new Error("Invalid input");
-    } else {
-      this.departments.push({ username, salary, position, department: dep });
-      return `New employee is hired. Name: ${username}. Position: ${position}`;
+  addEmployee(username, salary, position, department) {
+    if (!username || !position || !department || !salary || salary < 0) {
+      throw new Error("Invalid input!");
     }
+
+    if (!this.departmentsList[department]) {
+      this.departmentsList[department] = [];
+    }
+    this.departmentsList[department].push({
+      username,
+      salary: Number(salary),
+      position,
+    });
+    return `New employee is hired. Name: ${username}. Position: ${position}`;
   }
 
   bestDepartment() {
-    this.departments = this.departments.sort((a, b) =>
-      a.department.localeCompare(b.department)
-    );
+    let bestDep = "";
+    let bestSum = 0;
 
-    let result = this.departments.reduce((acc, el) => {
-      if (!acc.hasOwnProperty(el.department)) {
-        acc[el.department] = {
-          sum: 0,
-          count: 0,
-          department: el.department,
-          employees: [],
-        };
+    Object.entries(this.departmentsList).forEach(([dep, eList]) => {
+      let sum = eList.reduce((acc, el) => {
+        acc += el.salary;
+        return acc;
+      }, 0);
+      sum = sum / eList.length;
+      if (sum > bestSum) {
+        bestSum = sum;
+        bestDep = dep;
       }
-      acc[el.department].sum += el.salary;
-      acc[el.department].count++;
-      acc[el.department].employees.push(el);
+    });
 
-      return acc;
-    }, {});
-
-    let best = Object.values(result)
-      .sort((a, b) => b.sum / b.count - a.sum / a.count)
-      .shift();
-
-    let row = "";
-
-    row += `Best Department is: ${best.department}\nAverage salary: ${(
-      best.sum / best.count
-    ).toFixed(2)}\n`;
-
-    let lala = best.employees
-      .sort(
-        (a, b) => b.salary - a.salary || a.username.localeCompare(b.username)
-      )
-      .map((employee) => {
-        return `${employee.username} ${employee.salary} ${employee.position}`;
-      })
-      .join("\n");
-    row += lala;
-    return row;
+    if (bestDep != "") {
+      let row = `Best Department is: ${bestDep}\nAverage salary: ${bestSum.toFixed(
+        2
+      )}\n`;
+      this.departmentsList[bestDep]
+        .sort(
+          (a, b) => b.salary - a.salary || a.username.localeCompare(b.username)
+        )
+        .forEach(
+          (emp) => (row += `${emp.username} ${emp.salary} ${emp.position}\n`)
+        );
+      return row.trim();
+    }
   }
 }
 let c = new Company();
-c.addEmployee("Stanimir", 2000, "engineer", "Human resources");
+
 c.addEmployee("Pesho", 1500, "electrical engineer", "Construction");
 c.addEmployee("Slavi", 500, "dyer", "Construction");
 c.addEmployee("Stan", 2000, "architect", "Construction");
