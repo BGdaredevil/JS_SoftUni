@@ -1,3 +1,5 @@
+const { expect } = require("chai");
+
 class PaymentPackage {
   constructor(name, value) {
     this.name = name;
@@ -68,3 +70,24 @@ class PaymentPackage {
     return output.join("\n");
   }
 }
+
+describe("Class Payment Tests", function () {
+  let paymentInstance = new PaymentPackage("ivan", 10);
+  it("name has validation", function () {
+    expect(paymentInstance.name).to.equal("ivan");
+    expect(() => {
+      paymentInstance.name = "";
+    }).to.throw(Error);
+  });
+  it("value has validation", function () {
+    expect(paymentInstance.value).to.equal(10);
+    expect(() => {
+      paymentInstance.value = "";
+    }).to.throw(Error);
+  });
+  it("has validation", function () {
+    expect(() => {
+      paymentInstance.value = -5;
+    }).to.throw(Error);
+  });
+});
