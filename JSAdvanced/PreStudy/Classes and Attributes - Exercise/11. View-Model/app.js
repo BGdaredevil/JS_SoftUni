@@ -1,22 +1,17 @@
 class Textbox {
   constructor(selector, regEks) {
-    //this.value = value;
-    this._elements = Array.from(document.querySelectorAll(selector));
-    //this._value = this._elements[0].value;
-    this._value = "this peset internal value";
-
+    this.selector = document.querySelector(selector);
+    this._value = "";
+    this._elements = document.querySelectorAll(selector);
     this._invalidSymbols = regEks;
-    let s = 1;
-    this._elements.forEach((el) => {
-      el.value = `this is ${s++} plus ${this.value}`;
-      el.addEventListener("input", (e) => {
-        console.log(el.value, "fromEvent");
-        this._value = e.target.value;
-        this._elements.forEach((item) => {
-          item.value = this._value;
-        });
-      });
-    });
+
+    Array.from(this.elements).forEach(
+      (el) => (el.oninput = this.onInput.bind(this))
+    );
+  }
+
+  onInput(e) {
+    this.value = e.target.value;
   }
 
   get elements() {
@@ -24,16 +19,12 @@ class Textbox {
   }
 
   get value() {
-    //return this._elements[0].value;
     return this._value;
   }
 
   set value(txt) {
-    console.log("from setter");
     this._value = txt;
-    this._elements.forEach((el) => {
-      el.value = txt;
-    });
+    Array.from(this.elements).forEach((e) => (e.value = txt));
   }
 
   isValid() {
