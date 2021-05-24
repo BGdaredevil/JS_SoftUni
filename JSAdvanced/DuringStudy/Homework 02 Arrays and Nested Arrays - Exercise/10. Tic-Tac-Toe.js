@@ -25,7 +25,9 @@ function solve(input) {
     }
 
     if (!board.flat().includes(false)) {
-      return "The game ended! Nobody wins :(";
+      let row = "The game ended! Nobody wins :(\n";
+      board.map((e) => (row = row + e.join("\t") + "\n"));
+      return row;
     }
   }
 
@@ -70,5 +72,5 @@ function solve(input) {
   }
 }
 console.log(
-  solve(["0 1", "0 0", "0 2", "2 0", "1 0", "1 1", "1 2", "2 2", "2 1", "0 0"])
+  solve(["0 1", "0 0", "0 2", "2 0", "1 0", "1 2", "1 1", "2 1", "2 2", "0 0"])
 );
