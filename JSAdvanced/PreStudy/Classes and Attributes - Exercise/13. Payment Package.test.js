@@ -72,83 +72,101 @@ class PaymentPackage {
 }
 
 describe("Class Payment Tests", function () {
-  // it("initialization", function () {
-  //   expect(() => {
-  //     new PaymentPackage("pesho");
-  //   }).to.throw(Error);
-  //   expect(() => {
-  //     new PaymentPackage("pesho", {});
-  //   }).to.throw(Error);
-  //   expect(() => {
-  //     new PaymentPackage(10, 10);
-  //   }).to.throw(Error);
-  // });
-  it("name has validation", function () {
-    let paymentInstance = new PaymentPackage("ivan", 10);
+  it("initialization", function () {
     expect(() => {
-      paymentInstance.name = "";
+      new PaymentPackage("pesho");
     }).to.throw(Error);
     expect(() => {
-      paymentInstance.name = {};
+      new PaymentPackage("", 5);
     }).to.throw(Error);
-    expect(paymentInstance.name).to.equal("ivan");
-    paymentInstance.name = "pesho";
-    expect(paymentInstance.name).to.equal("pesho");
+    expect(() => {
+      new PaymentPackage("pesho", {});
+    }).to.throw(Error);
+    expect(() => {
+      new PaymentPackage("pesho", -1);
+    }).to.throw(Error);
+    expect(() => {
+      new PaymentPackage(10, 10);
+    }).to.throw(Error);
+    expect(() => {
+      new PaymentPackage(10);
+    }).to.throw(Error);
+    expect(() => {
+      new PaymentPackage("gosho", 12, 15);
+    }).to.not.throw(Error);
   });
   it("value has validation", function () {
-    let paymentInstance = new PaymentPackage("ivan", 10);
+    let temp = new PaymentPackage("ivan", 4);
+    expect(temp["_value"] === temp["value"]).to.equal(true);
+    expect(temp["_name"] === temp["name"]).to.equal(true);
+    expect(typeof temp.value).to.equal("number");
+    expect(temp.hasOwnProperty("_value")).to.equal(true);
+    expect(temp.hasOwnProperty("value")).to.equal(false);
+    expect(temp.value).to.equal(4);
+    temp.value = 5;
+    expect(temp.value).to.equal(5);
     expect(() => {
-      paymentInstance.value = "";
+      temp.value = -5;
     }).to.throw(Error);
     expect(() => {
-      paymentInstance.value = -5;
+      temp.value = 0;
+    }).to.not.throw(Error);
+    expect(() => {
+      temp.value = "2";
     }).to.throw(Error);
-    expect(paymentInstance.value).to.equal(10);
-    paymentInstance.value = 5;
-    expect(paymentInstance.value).to.equal(5);
   });
   it("VAT has validation", function () {
-    let paymentInstance = new PaymentPackage("ivan", 10);
-    expect(paymentInstance.VAT).to.equal(20);
+    let temp = new PaymentPackage("ivan", 10);
+    expect(temp["_VAT"] === temp["VAT"]).to.equal(true);
+    expect(typeof temp.VAT).to.equal("number");
+    expect(temp.hasOwnProperty("_VAT")).to.equal(true);
+    expect(temp.hasOwnProperty("VAT")).to.equal(false);
+    expect(temp.VAT).to.equal(20);
     expect(() => {
-      paymentInstance.VAT = "";
+      temp.VAT = "";
     }).to.throw(Error);
     expect(() => {
-      paymentInstance.VAT = -5;
+      temp.VAT = -5;
     }).to.throw(Error);
-    expect(paymentInstance.VAT).to.equal(20);
-    paymentInstance.VAT = 10;
-    expect(paymentInstance.VAT).to.equal(10);
+    expect(() => {
+      temp.VAT = NaN;
+      temp.toString();
+    }).to.not.throw(Error);
   });
   it("active has validation", function () {
-    let paymentInstance = new PaymentPackage("ivan", 10);
-    //expect(typeof paymentInstance.active).to.equal("boolean");
-    expect(paymentInstance.active).to.equal(true);
-    //expect(paymentInstance.active).to.equal(false);
-    // expect(() => {
-    //   paymentInstance.active = "";
-    // }).to.throw(Error);
+    let temp = new PaymentPackage("ivan", 10);
+    expect(temp["_active"] === temp["active"]).to.equal(true);
+    expect(typeof temp.active).to.equal("boolean");
+    expect(temp.hasOwnProperty("_active")).to.equal(true);
+    expect(temp.hasOwnProperty("active")).to.equal(false);
     expect(() => {
-      paymentInstance.active = {};
+      temp.active = null;
     }).to.throw(Error);
     expect(() => {
-      paymentInstance.active = "true";
+      temp.active = NaN;
     }).to.throw(Error);
   });
   it("toString test", function () {
-    let paymentInstance = new PaymentPackage("ivan", 10);
-    expect(typeof paymentInstance.toString()).to.equal("string");
-    paymentInstance.active = false;
-    expect(
-      paymentInstance.toString().split(/\s/).includes("(inactive)")
-    ).to.equal(true);
-    paymentInstance.active = true;
-    expect(
-      paymentInstance.toString().split(/\s/).includes("(inactive)")
-    ).to.equal(false);
     let temp = new PaymentPackage("HR Services", 1500);
+    expect(typeof temp.name).to.equal("string");
+    expect(typeof temp.toString()).to.equal("string");
+    expect(typeof temp.toString).to.equal("function");
+    expect(temp.hasOwnProperty("_name")).to.equal(true);
+    expect(temp.hasOwnProperty("name")).to.equal(false);
     expect(temp.toString()).to.equal(
       "Package: HR Services\n- Value (excl. VAT): 1500\n- Value (VAT 20%): 1800"
     );
+    temp.active = false;
+    expect(temp.toString()).to.equal(
+      "Package: HR Services (inactive)\n- Value (excl. VAT): 1500\n- Value (VAT 20%): 1800"
+    );
+    expect(() => {
+      let testArr = [
+        new PaymentPackage("string", 1000),
+        new PaymentPackage("string", 1000),
+        new PaymentPackage("string", 1000),
+      ];
+      testArr.join("\n");
+    }).to.not.throw(Error);
   });
 });
