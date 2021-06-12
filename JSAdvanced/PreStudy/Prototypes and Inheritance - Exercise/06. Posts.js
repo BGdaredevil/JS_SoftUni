@@ -20,13 +20,17 @@ function solve() {
     addComment(str) {
       this.comments.push(str);
     }
+
     toString() {
       let temp = [super.toString()];
       temp.push(`Rating: ${this.likes - this.dislikes}`);
       if (this.comments.length > 0) {
+        // let strr = "Comments:";
+        // this.comments.forEach((c) => (strr += `\n * ${c}`));
+        // temp.push(strr);
         temp.push(
-          ...this.comments.reduce((a, e) => (a.push(` * ${e})`), a), [
-            "Comments:",
+          ...this.comments.reduce((a, e) => (a.push(` * ${e}`), a), [
+            `Comments:`,
           ])
         );
       }
