@@ -1,3 +1,3 @@
-function solve(){
-   //Todo: Write your code here!
-  }
+function solve() {
+  console.log("hello");
+}
