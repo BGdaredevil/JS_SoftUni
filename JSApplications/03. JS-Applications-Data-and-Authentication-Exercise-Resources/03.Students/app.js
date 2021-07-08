@@ -12,6 +12,7 @@
     })
       .finally(() => {
         populateTable();
+        form.reset();
       })
       .catch((err) => console.error(err));
   });
