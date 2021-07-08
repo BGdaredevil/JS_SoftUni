@@ -126,7 +126,11 @@
     let editForm = document.querySelector("#editForm");
     let data = new FormData(editForm);
     data = Object.fromEntries(data);
-    let id = editForm.getAttribute("id");
+    let id = editForm.querySelector("h3").getAttribute("id");
+
+    if (data.author === "" || data.title === "") {
+      return;
+    }
 
     fetch(`http://localhost:3030/jsonstore/collections/books/${id}`, {
       method: "PUT",
