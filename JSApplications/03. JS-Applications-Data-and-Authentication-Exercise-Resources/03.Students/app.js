@@ -6,9 +6,15 @@
   form.addEventListener("submit", (ev) => {
     ev.preventDefault();
     let data = new FormData(form);
+    data = Object.fromEntries(data);
+    for (const key in data) {
+      if (data[key] === "") {
+        return;
+      }
+    }
     fetch("http://localhost:3030/jsonstore/collections/students", {
       method: "POST",
-      body: JSON.stringify(Object.fromEntries(data)),
+      body: JSON.stringify(data),
     })
       .finally(() => {
         populateTable();
