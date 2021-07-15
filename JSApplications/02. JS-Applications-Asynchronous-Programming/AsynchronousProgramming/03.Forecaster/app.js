@@ -31,11 +31,7 @@ function attachEvents() {
             let currForecastDiv = el(
               "div",
               ["forecasts"],
-              el(
-                "span",
-                ["condition", "symbol"],
-                selector[now.forecast.condition]
-              ),
+              el("span", ["condition", "symbol"], selector[now.forecast.condition]),
               el(
                 "span",
                 ["condition"],
@@ -78,9 +74,7 @@ function attachEvents() {
             }
 
             resultDiv.querySelector("div#current").appendChild(currForecastDiv);
-            resultDiv
-              .querySelector("div#upcoming")
-              .appendChild(threeDayForecastDiv);
+            resultDiv.querySelector("div#upcoming").appendChild(threeDayForecastDiv);
           })
           .catch(errorHandler);
       })

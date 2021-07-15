@@ -7,11 +7,7 @@ function attachEvents() {
           document
             .querySelector("select#posts")
             .appendChild(
-              e(
-                "option",
-                { attributes: { value: infoObj[key].id } },
-                infoObj[key].title
-              )
+              e("option", { attributes: { value: infoObj[key].id } }, infoObj[key].title)
             );
         });
       });
@@ -23,17 +19,11 @@ function attachEvents() {
       return;
     }
     Promise.all([
-      fetch("http://localhost:3030/jsonstore/blog/comments").then((r) =>
-        r.json()
-      ),
-      fetch(
-        `http://localhost:3030/jsonstore/blog/posts/${postIdNeeded}`
-      ).then((r) => r.json()),
+      fetch("http://localhost:3030/jsonstore/blog/comments").then((r) => r.json()),
+      fetch(`http://localhost:3030/jsonstore/blog/posts/${postIdNeeded}`).then((r) => r.json()),
     ])
       .then(([comments, postInfo]) => {
-        let relevant = Object.values(comments).filter(
-          (x) => x.postId === postIdNeeded
-        );
+        let relevant = Object.values(comments).filter((x) => x.postId === postIdNeeded);
         document.querySelector("#post-comments").innerHTML = "";
         relevant.forEach((com) => {
           document

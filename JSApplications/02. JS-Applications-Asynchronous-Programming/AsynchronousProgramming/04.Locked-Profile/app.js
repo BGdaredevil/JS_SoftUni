@@ -97,15 +97,12 @@ function lockedProfile() {
     });
 
   function btnOnClick(ev) {
-    let radio = ev.target.parentElement.querySelector(
-      'input[type="radio"]:checked'
-    );
+    let radio = ev.target.parentElement.querySelector('input[type="radio"]:checked');
 
     if (radio.value !== "unlock") {
       return;
     }
-    ev.target.innerText =
-      ev.target.innerText === "Show More" ? "Hide it" : "Show More";
+    ev.target.innerText = ev.target.innerText === "Show More" ? "Hide it" : "Show More";
     ev.target.previousSibling.style.display =
       ev.target.previousSibling.style.display === "block" ? "none" : "block";
     console.log(ev.target.parentElement);
