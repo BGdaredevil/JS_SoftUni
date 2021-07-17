@@ -4,27 +4,19 @@ import viewSelector from "../viewSelector.js";
 let baseUrl = `http://localhost:3030`;
 
 async function register(userObj) {
-  try {
-    let res = await serverRequest(`${baseUrl}/users/register`, "post", userObj);
-    localStorage.setItem("authToken", res.accessToken);
-    localStorage.setItem("userId", res._id);
-    localStorage.setItem("userName", res.email);
-    nav.loginUser();
-  } catch (error) {
-    alert(error);
-  }
+  let res = await serverRequest(`${baseUrl}/users/register`, "post", userObj);
+  localStorage.setItem("authToken", res.accessToken);
+  localStorage.setItem("userId", res._id);
+  localStorage.setItem("userName", res.email);
+  nav.loginUser();
 }
 
 async function logIn(userObj) {
-  try {
-    let res = await serverRequest(`${baseUrl}/users/login`, "post", userObj);
-    localStorage.setItem("authToken", res.accessToken);
-    localStorage.setItem("userId", res._id);
-    localStorage.setItem("userName", res.email);
-    nav.loginUser();
-  } catch (error) {
-    alert(error);
-  }
+  let res = await serverRequest(`${baseUrl}/users/login`, "post", userObj);
+  localStorage.setItem("authToken", res.accessToken);
+  localStorage.setItem("userId", res._id);
+  localStorage.setItem("userName", res.email);
+  nav.loginUser();
 }
 
 async function logOut() {
@@ -80,7 +72,8 @@ async function serverRequest(url, method = "get", body, isAuthorized, skipResult
 
   if (!res.ok) {
     let message = await res.text();
-    throw new Error(`${res.status}: ${message}`);
+    // throw new Error(`${res.status}: ${message}`);
+    throw new Error(message);
   }
 
   if (skipResult) {

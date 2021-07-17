@@ -23,6 +23,16 @@ async function formHandler(e) {
   e.preventDefault();
   let data = new FormData(e.target);
   try {
+    if (data.get("title").trim() === "") {
+      throw new Error("Please add a movie title");
+    }
+    if (data.get("description").trim() === "") {
+      throw new Error("Please add a movie description");
+    }
+    if (data.get("imageUrl").trim() === "") {
+      throw new Error("Please add movie splash art");
+    }
+
     await auth.serverRequest(
       `http://localhost:3030/data/movies`,
       "post",
@@ -31,7 +41,6 @@ async function formHandler(e) {
     );
     viewSelector.goToPage("home-page");
   } catch (err) {
-    console.error(err);
     alert(err);
   }
 }

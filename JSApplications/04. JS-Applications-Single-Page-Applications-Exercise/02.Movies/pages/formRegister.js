@@ -32,14 +32,17 @@ async function requestRegistration(e) {
       dataObj.repeatPassword.trim() === ""
     ) {
       alert("Fields cannot be empty");
+      return;
     }
 
     if (dataObj.password.length < 6) {
       alert("Password must be at least 6 characters");
+      return;
     }
 
     if (dataObj.password !== dataObj.repeatPassword) {
       alert("Passwords don't match");
+      return;
     }
 
     await auth.register(dataObj);
@@ -47,8 +50,7 @@ async function requestRegistration(e) {
     nav.loginUser();
     viewSelector.goToPage("home-page");
   } catch (err) {
-    console.error(err);
-    alert(err.message);
+    alert(JSON.parse(err.message).message);
   }
 }
 

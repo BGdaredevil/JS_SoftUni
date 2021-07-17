@@ -24,9 +24,8 @@ async function requestLogIn(e) {
     await auth.logIn(dataObj);
     e.target.reset();
     viewSelector.goToPage("home-page");
-  } catch (error) {
-    console.error(error);
-    alert(error);
+  } catch (err) {
+    alert(JSON.parse(err.message).message);
   }
 }
 
