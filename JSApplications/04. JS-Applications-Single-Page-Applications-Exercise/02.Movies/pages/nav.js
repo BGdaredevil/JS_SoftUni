@@ -2,10 +2,9 @@ import auth from "../services/auth.js";
 
 let location = undefined;
 
-export function startPoint(ref) {
+function startPoint(ref) {
   location = ref;
   location.dataset.viewKey = "nav-menu";
-  // console.log(this);
   if (auth.isLoggedIn()) {
     loginUser();
   } else {
@@ -13,7 +12,7 @@ export function startPoint(ref) {
   }
 }
 
-export function getView() {
+function getView() {
   return location;
 }
 

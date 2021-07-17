@@ -1,19 +1,39 @@
+import { allMenuItemsSelector } from "../app.js";
+import auth from "../services/auth.js";
 import viewSelector from "../viewSelector.js";
 
 let location = undefined;
 let form = undefined;
 
-export function startPoint(ref) {
+function startPoint(ref) {
   location = ref;
   location.dataset.viewKey = "add-movie";
 
   form = location.querySelector("form");
-  form.addEventListener("submit", viewSelector.handler);
+  form.dataset.viewKey = "form-add-movie";
+  form.addEventListener("submit", formHandler);
+  form.classList.add(allMenuItemsSelector.substring(1));
 }
 
-export function getView() {
-  console.log("hello");
+function getView() {
   return location;
+}
+
+async function formHandler(e) {
+  e.preventDefault();
+  let data = new FormData(e.target);
+  try {
+    await auth.serverRequest(
+      `http://localhost:3030/data/movies`,
+      "post",
+      { title: data.get("title"), description: data.get("description"), img: data.get("imageUrl") },
+      true
+    );
+    viewSelector.goToPage("home-page");
+  } catch (err) {
+    console.error(err);
+    alert(err);
+  }
 }
 
 let addMovie = { startPoint, getView };

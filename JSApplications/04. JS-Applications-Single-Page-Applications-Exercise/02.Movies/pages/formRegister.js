@@ -4,7 +4,7 @@ import nav from "./nav.js";
 
 let location = undefined;
 
-export function startPoint(ref) {
+function startPoint(ref) {
   location = ref;
   location.dataset.viewKey = "form-register";
 
@@ -12,7 +12,7 @@ export function startPoint(ref) {
   form.addEventListener("submit", requestRegistration);
 }
 
-export function getView() {
+function getView() {
   return location;
 }
 

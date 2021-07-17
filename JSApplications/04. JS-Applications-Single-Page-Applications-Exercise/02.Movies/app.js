@@ -5,8 +5,6 @@ import editMovie from "./pages/editMovie.js";
 import formLogIn from "./pages/formLogIn.js";
 import formRegister from "./pages/formRegister.js";
 import movieDetails from "./pages/movieDetails.js";
-import movieList from "./pages/movieList.js";
-import navBtn from "./pages/navBtn.js";
 import viewSelector from "./viewSelector.js";
 import auth from "./services/auth.js";
 
@@ -16,14 +14,11 @@ let root = undefined;
 (() => {
   let rootSelector = "#app";
   root = document.querySelector(rootSelector);
-  // auth.clearStorage();
-
-  addMovie.startPoint(document.querySelector("#add-movie"));
-  // navBtn.startPoint(document.querySelector());
-  editMovie.startPoint(document.querySelector("#edit-movie"));
-  // movieList.startPoint(document.querySelector("#movie"));
+  auth.clearStorage();
 
   //done
+  editMovie.startPoint(document.querySelector("#edit-movie"));
+  addMovie.startPoint(document.querySelector("#add-movie"));
   movieDetails.startPoint(document.querySelector("#movie-example"));
   home.startPoint(document.querySelector("#home-page"));
   nav.startPoint(document.querySelector("nav"));
@@ -39,11 +34,7 @@ let root = undefined;
 })();
 
 async function changeView(view) {
-  // if (view.value === undefined) {
-  //   view = home.getView();
-  // }
   view = await view;
-  // console.log(view);
   [...root.children].forEach((x) => x.remove());
   root.appendChild(view);
 }

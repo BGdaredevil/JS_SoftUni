@@ -3,7 +3,7 @@ import viewSelector from "../viewSelector.js";
 
 let location = undefined;
 
-export function startPoint(ref) {
+function startPoint(ref) {
   location = ref;
   location.dataset.viewKey = "form-login";
 
@@ -11,7 +11,7 @@ export function startPoint(ref) {
   form.addEventListener("submit", requestLogIn);
 }
 
-export function getView() {
+function getView() {
   return location;
 }
 

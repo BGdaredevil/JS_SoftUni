@@ -4,12 +4,12 @@ import viewSelector from "../viewSelector.js";
 
 let location = undefined;
 
-export function startPoint(ref) {
+function startPoint(ref) {
   location = ref;
   location.dataset.viewKey = "movie-details";
 }
 
-export async function getView(id) {
+async function getView(id) {
   try {
     let userId = auth.getUserId();
     let movie = auth.serverRequest(`http://localhost:3030/data/movies/${id}`);
@@ -39,7 +39,6 @@ export async function getView(id) {
 }
 
 async function deleteMovie(id) {
-  console.log(id);
   try {
     await auth.serverRequest(`http://localhost:3030/data/movies/${id}`, "delete", undefined, true);
     return viewSelector.redirectToPage("home-page");
@@ -55,7 +54,6 @@ async function likeMovie(id) {
     let likes = await auth.serverRequest(
       `http://localhost:3030/data/likes?where=movieId%3D%22${id}%22&distinct=_ownerId&count`
     );
-    console.log(location.querySelector(".like"));
     location.querySelector(".like").remove();
     location.querySelector(".likes").innerText = `Liked: ${likes}`;
     return viewSelector.redirectToPage("movie-details", id);

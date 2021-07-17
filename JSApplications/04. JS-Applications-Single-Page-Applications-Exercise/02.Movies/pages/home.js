@@ -21,8 +21,6 @@ async function populateMovies() {
   try {
     let movieArr = await auth.serverRequest("http://localhost:3030/data/movies", "get");
     let movieContainer = location.querySelector("#movies-container");
-    // console.log(movieContainer);
-    // console.log(movieArr);
     [...movieContainer.children].forEach((c) => c.remove());
     addMovieBtn.remove();
     if (auth.isLoggedIn()) {

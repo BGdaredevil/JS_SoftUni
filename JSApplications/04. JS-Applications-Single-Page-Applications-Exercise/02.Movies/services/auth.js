@@ -3,7 +3,7 @@ import viewSelector from "../viewSelector.js";
 
 let baseUrl = `http://localhost:3030`;
 
-export async function register(userObj) {
+async function register(userObj) {
   try {
     let res = await serverRequest(`${baseUrl}/users/register`, "post", userObj);
     localStorage.setItem("authToken", res.accessToken);
@@ -15,7 +15,7 @@ export async function register(userObj) {
   }
 }
 
-export async function logIn(userObj) {
+async function logIn(userObj) {
   try {
     let res = await serverRequest(`${baseUrl}/users/login`, "post", userObj);
     localStorage.setItem("authToken", res.accessToken);
@@ -27,7 +27,7 @@ export async function logIn(userObj) {
   }
 }
 
-export async function logOut() {
+async function logOut() {
   try {
     await serverRequest(`${baseUrl}/users/logout`, "get", undefined, true, true);
     localStorage.removeItem("authToken");

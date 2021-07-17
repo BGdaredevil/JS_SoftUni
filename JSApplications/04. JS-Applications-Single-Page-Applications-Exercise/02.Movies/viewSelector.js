@@ -4,8 +4,6 @@ import formLogIn from "./pages/formLogIn.js";
 import formRegister from "./pages/formRegister.js";
 import home from "./pages/home.js";
 import movieDetails from "./pages/movieDetails.js";
-import movieList from "./pages/movieList.js";
-import navBtn from "./pages/navBtn.js";
 import auth from "./services/auth.js";
 
 let views = {
@@ -18,9 +16,7 @@ let views = {
   "form-register": async () => formRegister.getView(),
   "home-page": async () => home.getView(),
   "movie-details": async (id) => movieDetails.getView(id),
-  // "movie-list": async () => movieList.getView(),
   "nav-menu": async () => nav.getView(),
-  //   "nav-btn": async () => navBtn.getView(),
 };
 
 let getViewFunc = undefined;
@@ -33,10 +29,7 @@ export function startPoint(elementsList, elementsSelector, callback) {
 }
 
 export function handler(e) {
-  console.log(e.target.dataset.viewKey);
   let element = e.target.matches(selector) ? e.target : e.target.closest(selector);
-  // console.log(element);
-  // console.log(element.dataset.viewKey);
   if (element.dataset.viewKey !== undefined) {
     let [viewKey, id] = element.dataset.viewKey.split("/");
     goToPage(viewKey, id);
