@@ -246,6 +246,7 @@ function makeUserComent(data) {
 }
 
 function makePost(info) {
+  console.log(info);
   return e(
     "div",
     {},
