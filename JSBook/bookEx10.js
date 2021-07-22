@@ -424,9 +424,7 @@ function crypto(input) {
   for (let i = index; i <= letterNum; i++) {
     let currentLetter = input[i].charCodeAt(0);
     let cryptedChar =
-      firstPart(currentLetter) +
-      secondPart(currentLetter) +
-      lastPart(currentLetter);
+      firstPart(currentLetter) + secondPart(currentLetter) + lastPart(currentLetter);
     output += cryptedChar;
   }
   console.log(output);
