@@ -21,7 +21,7 @@ const editTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div cl
             id="new-make"
             type="text"
             name="make"
-            value=${item.make}
+            .value=${item.make}
           />
         </div>
         <div class="form-group has-success">
@@ -32,7 +32,7 @@ const editTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div cl
             id="new-model"
             type="text"
             name="model"
-            value=${item.model}
+            .value=${item.model}
           />
         </div>
         <div class="form-group has-danger">
@@ -43,7 +43,7 @@ const editTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div cl
             id="new-year"
             type="number"
             name="year"
-            value=${item.year}
+            .value=${item.year}
           />
         </div>
         <div class="form-group">
@@ -54,7 +54,7 @@ const editTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div cl
             id="new-description"
             type="text"
             name="description"
-            value=${item.description}
+            .value=${item.description}
           />
         </div>
       </div>
@@ -67,7 +67,7 @@ const editTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div cl
             id="new-price"
             type="number"
             name="price"
-            value=${item.price}
+            .value=${item.price}
           />
         </div>
         <div class="form-group">
@@ -78,7 +78,7 @@ const editTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div cl
             id="new-image"
             type="text"
             name="img"
-            value=${item.img}
+            .value=${item.img}
           />
         </div>
         <div class="form-group">
@@ -88,7 +88,7 @@ const editTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div cl
             id="new-material"
             type="text"
             name="material"
-            value=${ifDefined(item.material)}
+            .value=${ifDefined(item.material)}
           />
         </div>
         <input type="submit" class="btn btn-info" value="Edit" />

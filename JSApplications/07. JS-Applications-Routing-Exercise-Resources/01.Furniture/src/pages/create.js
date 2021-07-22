@@ -23,7 +23,7 @@ const createTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div
             id="new-make"
             type="text"
             name="make"
-            value=${ifDefined(item.make)}
+            .value=${ifDefined(item.make)}
           />
         </div>
         <div class="form-group has-success">
@@ -34,7 +34,7 @@ const createTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div
             id="new-model"
             type="text"
             name="model"
-            value=${ifDefined(item.model)}
+            .value=${ifDefined(item.model)}
           />
         </div>
         <div class="form-group has-danger">
@@ -45,7 +45,7 @@ const createTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div
             id="new-year"
             type="number"
             name="year"
-            value=${ifDefined(item.year)}
+            .value=${ifDefined(item.year)}
           />
         </div>
         <div class="form-group">
@@ -56,7 +56,7 @@ const createTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div
             id="new-description"
             type="text"
             name="description"
-            value=${ifDefined(item.description)}
+            .value=${ifDefined(item.description)}
           />
         </div>
       </div>
@@ -69,7 +69,7 @@ const createTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div
             id="new-price"
             type="number"
             name="price"
-            value=${ifDefined(item.price)}
+            .value=${ifDefined(item.price)}
           />
         </div>
         <div class="form-group">
@@ -80,7 +80,7 @@ const createTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div
             id="new-image"
             type="text"
             name="img"
-            value=${ifDefined(item.img)}
+            .value=${ifDefined(item.img)}
           />
         </div>
         <div class="form-group">
@@ -90,7 +90,7 @@ const createTemplate = (item, onSubmit, isError, a, b, c, d, e, f) => html`<div
             id="new-material"
             type="text"
             name="material"
-            value=${ifDefined(item.material)}
+            .value=${ifDefined(item.material)}
           />
         </div>
         <input type="submit" class="btn btn-primary" value="Create" />
