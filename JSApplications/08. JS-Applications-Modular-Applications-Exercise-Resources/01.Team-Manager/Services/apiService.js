@@ -77,3 +77,10 @@ export async function put(url, data) {
 export async function del(url) {
   return await askServer(url, getOptions("delete"));
 }
+
+export function clearLocalStorage() {
+  localStorage.removeItem("username");
+  localStorage.removeItem("email");
+  localStorage.removeItem("userToken");
+  localStorage.removeItem("userId");
+}

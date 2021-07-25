@@ -52,11 +52,9 @@ const baseTemplate = () => html` <div id="content">
   <footer id="footer">SoftUni &copy; 2014-2021</footer>
 </div>`;
 
-page.start();
+api.clearLocalStorage();
 
-// navLoc = document.querySelector("header#titlebar");
-// mainLoc = document.querySelector("main");
-// nav.settings.location = navLoc;
+page.start();
 
 async function decoContext(ctx, next) {
   root = document.querySelector("body");
