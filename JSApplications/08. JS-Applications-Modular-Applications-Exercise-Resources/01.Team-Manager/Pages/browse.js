@@ -1,5 +1,7 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
+import { until } from "../node_modules/lit-html/directives/until.js";
 import { getTeams, isLogged, getTeamMembers } from "../Services/dataService.js";
+import { loaderTemplate } from "./commonLoader.js";
 
 const teamCardTemplate = (team) => html` <article class="layout">
   <img src=${team.logoUrl} class="team-logo left-col" />
@@ -25,13 +27,15 @@ const browseTemplate = (list, isUser) => html`<section id="browse">
 </section>`;
 
 export async function browseView(ctx) {
-  let teamsList = await getTeams();
-  for (const team of teamsList) {
-    let members = await getTeamMembers(team);
-    team.members = members;
-  }
+  const populator = async () => {
+    let teamsList = await getTeams();
+    for (const team of teamsList) {
+      let members = await getTeamMembers(team);
+      team.members = members;
+    }
 
-  // console.log(teamsList);
+    return browseTemplate(teamsList, isLogged());
+  };
 
-  ctx.render(browseTemplate(teamsList, isLogged()));
+  ctx.render(until(populator(), loaderTemplate()));
 }

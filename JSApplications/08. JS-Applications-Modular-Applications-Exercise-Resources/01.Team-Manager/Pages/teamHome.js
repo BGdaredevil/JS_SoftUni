@@ -1,4 +1,5 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
+import { until } from "../node_modules/lit-html/directives/until.js";
 import {
   getTeamData,
   getCurrUserId,
@@ -6,6 +7,7 @@ import {
   declineAplication,
   approveAplication,
 } from "../Services/dataService.js";
+import { loaderTemplate } from "./commonLoader.js";
 
 const teamControllsTemplate = (team, visitorId) => html`<div>
   ${visitorId === team._ownerId
@@ -93,20 +95,23 @@ const teamHomeTemplate = (team, visitorId) => html`<section id="team-home">
 let teamInfo;
 
 export async function teamHomeView(ctx) {
-  let team = await getTeamData(ctx.params.id);
+  const populator = async () => {
+    let team = await getTeamData(ctx.params.id);
 
-  if (team.members.pending === undefined) {
-    team.members.pending = [];
-  }
+    if (team.members.pending === undefined) {
+      team.members.pending = [];
+    }
 
-  let visitorId = getCurrUserId();
+    let visitorId = getCurrUserId();
 
-  team.request = requestToJoin;
-  team.accept = acceptRequestToJoin;
-  team.decline = declineRequestToJoin;
+    team.request = requestToJoin;
+    team.accept = acceptRequestToJoin;
+    team.decline = declineRequestToJoin;
 
-  ctx.render(teamHomeTemplate(team, visitorId));
-  teamInfo = team;
+    teamInfo = team;
+    return teamHomeTemplate(team, visitorId);
+  };
+  ctx.render(until(populator(), loaderTemplate()));
 }
 
 export async function requestToJoin(ctx) {

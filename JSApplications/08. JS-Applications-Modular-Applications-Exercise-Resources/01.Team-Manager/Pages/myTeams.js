@@ -1,5 +1,7 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
+import { until } from "../node_modules/lit-html/directives/until.js";
 import { getCurrUserId, getMyTeams, getTeamMembers } from "../Services/dataService.js";
+import { loaderTemplate } from "./commonLoader.js";
 
 const notInvolvedTemplate = () => html` <article class="layout narrow">
   <div class="pad-med">
@@ -30,14 +32,16 @@ const myTeamsTemplate = (myTeams) => html`<section id="my-teams">
 </section>`;
 
 export async function myTeamsView(ctx) {
-  let myTeams = await getMyTeams(getCurrUserId());
+  const populator = async () => {
+    let myTeams = await getMyTeams(getCurrUserId());
 
-  for (const team of myTeams) {
-    let members = await getTeamMembers(team.team);
-    team.team.members = members;
-  }
+    for (const team of myTeams) {
+      let members = await getTeamMembers(team.team);
+      team.team.members = members;
+    }
 
-  console.log(myTeams);
+    return myTeamsTemplate(myTeams);
+  };
 
-  ctx.render(myTeamsTemplate(myTeams));
+  ctx.render(until(populator(), loaderTemplate()));
 }
