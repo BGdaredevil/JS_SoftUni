@@ -1,4 +1,5 @@
 import { render, html } from "./node_modules/lit-html/lit-html.js";
+import { ulElements } from "./template.js";
 
 let form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
@@ -9,7 +10,7 @@ form.addEventListener("submit", (e) => {
   form.reset();
 });
 
-let ulElements = (arr) =>
-  html`<ul>
-    ${arr.map((x) => html`<li>${x}</li>`)}
-  </ul>`;
+// let ulElements = (arr) =>
+//   html`<ul>
+//     ${arr.map((x) => html`<li>${x}</li>`)}
+//   </ul>`;
