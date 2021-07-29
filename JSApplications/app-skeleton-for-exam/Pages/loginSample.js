@@ -17,14 +17,20 @@ export async function loginView(ctx) {
       const password = data.get("password").trim();
 
       if (email == "" || password == "") {
-        // figure a good way to handle user notifications
+        form.err = {
+          message: "Pls fill all fields",
+        };
+        ctx.render(loginTemplate(form));
+        return;
       }
 
       await login(email, password);
       ctx.page.redirect("/home");
     } catch (err) {
-      alert(err);
-      console.log(err);
+      form.err = {
+        message: "Pls fill all fields",
+      };
+      ctx.render(loginTemplate(form));
     }
   }
 }

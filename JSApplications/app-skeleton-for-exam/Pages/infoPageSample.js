@@ -8,13 +8,15 @@ import { loaderTemplate } from "./commonLoader.js";
 // TODO: name functions:
 // TODO: if untill is needed and a loader is needed.... Remove it otherwise....:
 
-const browseTemplate = (data) => html``;
+const homeTemplate = (data) => html``;
 
-export async function browseView(ctx) {
+export async function homeView(ctx) {
+  console.log("homeView");
+
   const populator = async () => {
     const data = "await pesho to go get the data";
 
-    return browseTemplate(data);
+    return homeTemplate(data);
   };
 
   ctx.render(until(populator(), loaderTemplate()));

@@ -12,17 +12,34 @@ export async function registerView(ctx) {
     try {
       e.preventDefault();
       const data = new FormData(e.target);
-      const email = data.get("email").trim();
-      // const username = data.get("username");
-      const password = data.get("password").trim();
-      const repass = data.get("repass").trim();
+      const newUser = {
+        email: data.get("email").trim(),
+        username: data.get("username").trim(),
+        password: data.get("password").trim(),
+        repass: data.get("repeatPass").trim(),
+        gender: data.get("gender").trim(),
+      };
 
-      if (email == "" || password == "" || username == "" || repass == "") {
-        // figure a good way to handle verifications
+      if (
+        newUser.email == "" ||
+        newUser.password == "" ||
+        newUser.username == "" ||
+        newUser.repass == "" ||
+        newUser.gender == ""
+      ) {
+        form.err = {
+          message: "Pls fill all fields",
+        };
+        ctx.render(registerTemplate(form));
+        return;
       }
 
-      if (repass !== password) {
-        // figure a good way to handle verifications
+      if (newUser.repass !== newUser.password) {
+        form.err = {
+          message: "passwords do not match",
+        };
+        ctx.render(registerTemplate(form));
+        return;
       }
 
       await register(username, email, password);

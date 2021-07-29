@@ -4,26 +4,17 @@ export const settings = {
 
 export async function login(email, password) {
   const reply = await post(`${settings.baseUrl}/users/login`, { email, password });
-  localStorage.setItem("username", reply.username);
-  localStorage.setItem("email", reply.email);
-  localStorage.setItem("userToken", reply.accessToken);
-  localStorage.setItem("userId", reply._id);
+  localStorage.setItem("user", JSON.stringify(reply));
   return reply;
 }
 export async function register(username, email, password) {
   const reply = await post(`${settings.baseUrl}/users/register`, { username, email, password });
-  localStorage.setItem("username", reply.username);
-  localStorage.setItem("email", reply.email);
-  localStorage.setItem("userToken", reply.accessToken);
-  localStorage.setItem("userId", reply._id);
+  localStorage.setItem("user", JSON.stringify(reply));
   return reply;
 }
 export async function logout() {
   const reply = await get(`${settings.baseUrl}/users/logout`);
-  localStorage.removeItem("username");
-  localStorage.removeItem("email");
-  localStorage.removeItem("userToken");
-  localStorage.removeItem("userId");
+  localStorage.removeItem("user");
   return reply;
 }
 
@@ -62,25 +53,12 @@ function getOptions(method = "get", body) {
   return options;
 }
 
-export async function get(url) {
-  return await askServer(url, getOptions());
-}
+export const get = async (url) => await askServer(url, getOptions());
 
-export async function post(url, data) {
-  return await askServer(url, getOptions("post", data));
-}
+export const post = async (url, data) => await askServer(url, getOptions("post", data));
 
-export async function put(url, data) {
-  return await askServer(url, getOptions("put", data));
-}
+export const put = async (url, data) => await askServer(url, getOptions("put", data));
 
-export async function del(url) {
-  return await askServer(url, getOptions("delete"));
-}
+export const del = async (url) => await askServer(url);
 
-export function clearLocalStorage() {
-  localStorage.removeItem("username");
-  localStorage.removeItem("email");
-  localStorage.removeItem("userToken");
-  localStorage.removeItem("userId");
-}
+export const clearLocalStorage = () => localStorage.removeItem("user");

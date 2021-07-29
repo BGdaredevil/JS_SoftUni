@@ -10,6 +10,8 @@ import { html } from "../node_modules/lit-html/lit-html.js";
 const createTemplate = (form) => html``;
 
 export async function createView(ctx) {
+  console.log("createView");
+
   const form = { submit: onSubmit };
 
   ctx.render(createTemplate(form));
@@ -22,13 +24,16 @@ export async function createView(ctx) {
     const teamDescription = data.get("description").trim();
     try {
       if (teamName === "" || teamLogoUrl === "" || teamDescription === "") {
-        // check validity and so on -- custom err. handling????
+        form.err = {
+          message: "All fields are mandatory",
+        };
+        ctx.render(createTemplate(form));
+        return;
       }
 
-      let theNewTeam = "await reply from server";
-      let result = "await interpret server reply";
+      let theNewThing = "await reply from server";
 
-      ctx.page.redirect(`/team-home/${theNewTeam._id}`);
+      ctx.page.redirect(`/home`);
     } catch (err) {
       alert(err);
       console.log(err);
