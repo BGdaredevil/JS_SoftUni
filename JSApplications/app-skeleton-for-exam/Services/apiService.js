@@ -1,14 +1,22 @@
-export const settings = {
-  baseUrl: "",
-};
+// export const settings = {
+//   baseUrl: "",
+// };
 
-export async function login(email, password) {
-  const reply = await post(`${settings.baseUrl}/users/login`, { email, password });
+import { baseUrl } from "../app.js";
+
+export async function login(userObj) {
+  const reply = await post(`${settings.baseUrl}/users/login`, {
+    username: userObj.username,
+    password: userObj.password,
+  });
   localStorage.setItem("user", JSON.stringify(reply));
   return reply;
 }
-export async function register(username, email, password) {
-  const reply = await post(`${settings.baseUrl}/users/register`, { username, email, password });
+export async function register(userObj) {
+  const reply = await post(`${baseUrl}/users/register`, {
+    username: userObj.username,
+    password: userObj.password,
+  });
   localStorage.setItem("user", JSON.stringify(reply));
   return reply;
 }
@@ -36,13 +44,14 @@ async function askServer(url, options) {
 }
 
 function getOptions(method = "get", body) {
+  const user = localStorage.getItem("user");
   const options = {
     method: method.toLowerCase(),
     headers: {},
   };
 
-  if (localStorage.getItem("userToken") !== null) {
-    options.headers["X-Authorization"] = localStorage.getItem("userToken");
+  if (user !== null) {
+    options.headers["X-Authorization"] = JSON.parse(user).accessToken;
   }
 
   if (body) {

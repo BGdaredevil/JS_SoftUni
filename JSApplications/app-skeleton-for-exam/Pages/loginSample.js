@@ -12,23 +12,27 @@ export async function loginView(ctx) {
   async function onSubmit(e) {
     try {
       e.preventDefault();
+      // mind the fields -- username or email or whatever?
       const data = new FormData(e.target);
-      const email = data.get("email").trim();
-      const password = data.get("password").trim();
+      const user = {
+        email: data.get("email").trim(),
+        password: data.get("password").trim(),
+        username: data.get("username").trim(),
+      };
 
-      if (email == "" || password == "") {
+      if (Object.values(user).includes("")) {
         form.err = {
-          message: "Pls fill all fields",
+          message: "All fields are mandatory",
         };
         ctx.render(loginTemplate(form));
         return;
       }
 
-      await login(email, password);
+      await login(user);
       ctx.page.redirect("/home");
     } catch (err) {
       form.err = {
-        message: "Pls fill all fields",
+        message: `${err.message}`,
       };
       ctx.render(loginTemplate(form));
     }

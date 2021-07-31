@@ -15,7 +15,6 @@ export async function register(userObj) {
 }
 export async function logout() {
   const reply = await get(`${baseUrl}/users/logout`);
-  console.log(reply);
   localStorage.removeItem("user");
   return reply;
 }
@@ -38,13 +37,14 @@ async function askServer(url, options) {
 }
 
 function getOptions(method = "get", body) {
+  const user = localStorage.getItem("user");
   const options = {
     method: method.toLowerCase(),
     headers: {},
   };
 
-  if (localStorage.getItem("user") !== null) {
-    options.headers["X-Authorization"] = JSON.parse(localStorage.getItem("user")).accessToken;
+  if (user !== null) {
+    options.headers["X-Authorization"] = JSON.parse(user).accessToken;
   }
 
   if (body) {

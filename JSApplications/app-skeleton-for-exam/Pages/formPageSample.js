@@ -19,18 +19,24 @@ export async function createView(ctx) {
   async function onSubmit(e) {
     e.preventDefault();
     const data = new FormData(e.target);
-    const teamName = data.get("name").trim();
-    const teamLogoUrl = data.get("logoUrl").trim();
-    const teamDescription = data.get("description").trim();
+    const car = {
+      brand: data.get("brand").trim(),
+      model: data.get("model").trim(),
+      description: data.get("description").trim(),
+      year: data.get("year").trim(),
+      imageUrl: data.get("imageUrl").trim(),
+      price: data.get("price").trim(),
+    };
     try {
-      if (teamName === "" || teamLogoUrl === "" || teamDescription === "") {
+      if (Object.values(car).includes("")) {
         form.err = {
           message: "All fields are mandatory",
         };
         ctx.render(createTemplate(form));
         return;
       }
-
+      car.year = Number(car.year);
+      car.price = Number(car.price);
       let theNewThing = "await reply from server";
 
       ctx.page.redirect(`/home`);

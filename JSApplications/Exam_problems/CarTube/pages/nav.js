@@ -1,5 +1,5 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
-import { getUser, isLogged, logout } from "../services/dataService.js";
+import { getUser, logout } from "../services/dataService.js";
 
 const settings = {
   location,

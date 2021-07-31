@@ -1,15 +1,15 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
-import { isLogged, logout } from "../Services/dataService.js";
+import { getUser, isLogged, logout } from "../Services/dataService.js";
 
 const settings = {
   location,
 };
 
-const navTemplate = (isUser, currLoc) => html``;
+const navTemplate = (isUser, currLoc, user) => html``;
 
 async function getView(ctx, next) {
   let currLoc = ctx.path.split("/").filter((x) => x.length > 0)[0];
-  ctx.navRender(navTemplate(isLogged(), currLoc));
+  ctx.navRender(navTemplate(isLogged(), currLoc, getUser()));
   next();
 }
 

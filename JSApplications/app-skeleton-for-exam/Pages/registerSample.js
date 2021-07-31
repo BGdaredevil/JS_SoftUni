@@ -20,15 +20,9 @@ export async function registerView(ctx) {
         gender: data.get("gender").trim(),
       };
 
-      if (
-        newUser.email == "" ||
-        newUser.password == "" ||
-        newUser.username == "" ||
-        newUser.repass == "" ||
-        newUser.gender == ""
-      ) {
+      if (Object.values(newUser).includes("")) {
         form.err = {
-          message: "Pls fill all fields",
+          message: "All fields are mandatory",
         };
         ctx.render(registerTemplate(form));
         return;

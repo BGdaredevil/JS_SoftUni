@@ -1,4 +1,5 @@
 import * as api from "./apiService.js";
+import { baseUrl } from "../app.js";
 
 export const login = api.login;
 export const logout = api.logout;
