@@ -68,6 +68,8 @@ export const post = async (url, data) => await askServer(url, getOptions("post",
 
 export const put = async (url, data) => await askServer(url, getOptions("put", data));
 
-export const del = async (url) => await askServer(url);
+export const del = async (url) => await askServer(url, getOptions("delete"));
+
+export const patch = async (url, data) => await askServer(url, getOptions("patch", data));
 
 export const clearLocalStorage = () => localStorage.removeItem("user");
