@@ -5,7 +5,7 @@
 import { baseUrl } from "../app.js";
 
 export async function login(userObj) {
-  const reply = await post(`${settings.baseUrl}/users/login`, {
+  const reply = await post(`${baseUrl}/users/login`, {
     username: userObj.username,
     password: userObj.password,
   });
@@ -21,7 +21,7 @@ export async function register(userObj) {
   return reply;
 }
 export async function logout() {
-  const reply = await get(`${settings.baseUrl}/users/logout`);
+  const reply = await get(`${baseUrl}/users/logout`);
   localStorage.removeItem("user");
   return reply;
 }
