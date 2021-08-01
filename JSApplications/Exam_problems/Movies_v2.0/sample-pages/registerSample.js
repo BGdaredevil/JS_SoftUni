@@ -36,7 +36,7 @@ export async function registerView(ctx) {
         return;
       }
 
-      await register(newUser);
+      await register(username, email, password);
       ctx.page.redirect("/home");
     } catch (err) {
       alert(err);
