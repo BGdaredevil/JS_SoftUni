@@ -5,7 +5,7 @@ import { login } from "../Services/dataService.js";
 const loginTemplate = (form) => html``;
 
 export async function loginView(ctx) {
-  let form = { submit: onSubmit };
+  const form = { submit: onSubmit, err: [] };
 
   ctx.render(loginTemplate(form));
 
@@ -21,9 +21,14 @@ export async function loginView(ctx) {
       };
 
       if (Object.values(user).includes("")) {
-        form.err = {
-          message: "All fields are mandatory",
-        };
+        Object.entries(user).forEach(([k, v]) => {
+          if (v == "") {
+            form.err.push(`Field ${k} is mandatory`);
+          }
+        });
+      }
+
+      if (form.err.length > 0) {
         ctx.render(loginTemplate(form));
         return;
       }

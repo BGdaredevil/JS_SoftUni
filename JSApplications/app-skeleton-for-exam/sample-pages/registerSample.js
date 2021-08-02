@@ -5,7 +5,7 @@ import { register } from "../Services/dataService.js";
 const registerTemplate = (form) => html``;
 
 export async function registerView(ctx) {
-  let form = { submit: onSubmit };
+  const form = { submit: onSubmit, err: [] };
   ctx.render(registerTemplate(form));
 
   async function onSubmit(e) {
@@ -21,17 +21,20 @@ export async function registerView(ctx) {
       };
 
       if (Object.values(newUser).includes("")) {
-        form.err = {
-          message: "All fields are mandatory",
-        };
-        ctx.render(registerTemplate(form));
-        return;
+        Object.entries(newUser).forEach(([k, v]) => {
+          if (v == "") {
+            form.err.push(`Field ${k} is mandatory`);
+          }
+        });
+
+        // form.err.push("All fields are mandatory");
       }
 
       if (newUser.repass !== newUser.password) {
-        form.err = {
-          message: "passwords do not match",
-        };
+        form.err.push("Passwords do not match");
+      }
+
+      if (form.err.length > 0) {
         ctx.render(registerTemplate(form));
         return;
       }

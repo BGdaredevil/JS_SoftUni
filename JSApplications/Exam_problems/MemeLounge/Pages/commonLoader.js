@@ -8,8 +8,17 @@ export const loaderTemplate = () =>
 
 // add classes as per your css structure !!!
 
-export const popupSection = (err) => html`<section id="notifications">
-  <div id="errorBox" class="notification" style="display: block">
-    <span>${err?.message}</span>
-  </div>
-</section>`;
+export const popupSection = (err) => {
+  let temp = html`<section
+    @click=${(e) => setTimeout(() => e.target.remove(), 3000)}
+    id="notifications"
+  >
+    <div id="errorBox" class="notification" style="display: block">
+      <span>${err.map((e) => html` <p>${e}</p> `)}</span>
+    </div>
+  </section>`;
+
+  // setTimeout(temp.remove(), 2000);
+  console.log(temp);
+  return temp;
+};

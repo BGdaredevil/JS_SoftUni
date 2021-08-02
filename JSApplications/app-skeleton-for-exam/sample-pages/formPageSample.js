@@ -12,7 +12,7 @@ const createTemplate = (form) => html``;
 export async function createView(ctx) {
   console.log("createView");
 
-  const form = { submit: onSubmit };
+  const form = { submit: onSubmit, err: [] };
 
   ctx.render(createTemplate(form));
 
@@ -29,14 +29,20 @@ export async function createView(ctx) {
     };
     try {
       if (Object.values(car).includes("")) {
-        form.err = {
-          message: "All fields are mandatory",
-        };
-        ctx.render(createTemplate(form));
-        return;
+        Object.entries(car).forEach(([k, v]) => {
+          if (v == "") {
+            form.err.push(`Field ${k} is mandatory`);
+          }
+        });
       }
       car.year = Number(car.year);
       car.price = Number(car.price);
+
+      if (form.err.length > 0) {
+        ctx.render(createTemplate(form));
+        return;
+      }
+
       let theNewThing = "await reply from server";
 
       ctx.page.redirect(`/home`);
