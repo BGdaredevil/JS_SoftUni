@@ -1,6 +1,5 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
-// import { ifDefined } from "../node_modules/lit-html/directives/if-defined.js";
-import { login } from "../Services/dataService.js";
+import { login } from "../services/dataService.js";
 
 const loginTemplate = (form) => html``;
 
@@ -30,6 +29,7 @@ export async function loginView(ctx) {
 
       if (form.err.length > 0) {
         ctx.render(loginTemplate(form));
+        form.err = [];
         return;
       }
 

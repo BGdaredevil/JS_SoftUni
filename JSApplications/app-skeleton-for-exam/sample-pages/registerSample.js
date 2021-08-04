@@ -1,6 +1,6 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
 // import { ifDefined } from "../node_modules/lit-html/directives/if-defined.js";
-import { register } from "../Services/dataService.js";
+import { register } from "../services/dataService.js";
 
 const registerTemplate = (form) => html``;
 
@@ -34,13 +34,14 @@ export async function registerView(ctx) {
 
       if (form.err.length > 0) {
         ctx.render(registerTemplate(form));
+        form.err = [];
         return;
       }
 
       await register(newUser);
       ctx.page.redirect("/home");
     } catch (err) {
-      alert(err);
+      form.err = [err.message];
       console.log(err);
     }
   }

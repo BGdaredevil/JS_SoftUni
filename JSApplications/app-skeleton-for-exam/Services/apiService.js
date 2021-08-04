@@ -1,7 +1,3 @@
-// export const settings = {
-//   baseUrl: "",
-// };
-
 import { baseUrl } from "../app.js";
 
 export async function login(userObj) {

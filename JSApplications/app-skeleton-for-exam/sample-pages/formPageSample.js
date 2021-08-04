@@ -40,6 +40,7 @@ export async function createView(ctx) {
 
       if (form.err.length > 0) {
         ctx.render(createTemplate(form));
+        form.err = [];
         return;
       }
 
@@ -47,7 +48,7 @@ export async function createView(ctx) {
 
       ctx.page.redirect(`/home`);
     } catch (err) {
-      alert(err);
+      form.err = [`${err.message}`];
       console.log(err);
     }
   }
