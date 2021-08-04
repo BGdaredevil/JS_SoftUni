@@ -36,9 +36,7 @@ export async function loginView(ctx) {
       await login(user);
       ctx.page.redirect("/home");
     } catch (err) {
-      form.err = {
-        message: `${err.message}`,
-      };
+      form.err = [`${err.message}`];
       ctx.render(loginTemplate(form));
     }
   }
