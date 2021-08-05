@@ -64,9 +64,13 @@ export async function editView(ctx) {
         return;
       }
 
-      await updateMovie(form.data._id, movie);
+      const newMovie = await updateMovie(form.data._id, movie);
 
       ctx.page.redirect(`/details/${form.data._id}`);
+      notificationService.createNotification(
+        `Sucessfully changed your mocie "${newMovie.title}"`,
+        "success"
+      );
     } catch (err) {
       notificationService.createNotification(err.message);
       console.log(err);

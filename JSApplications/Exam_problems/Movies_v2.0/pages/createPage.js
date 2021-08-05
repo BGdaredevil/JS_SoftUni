@@ -1,5 +1,6 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
 import { createMovie } from "../Services/dataService.js";
+import notificationService from "../services/notificationService.js";
 // import { ifDefined } from "../node_modules/lit-html/directives/if-defined.js";
 // import {
 //   applyForTeam,
@@ -55,6 +56,10 @@ export async function createView(ctx) {
       let theNewThing = await createMovie(movie);
       // console.log(theNewThing);
       ctx.page.redirect(`/home`);
+      notificationService.createNotification(
+        `Sucessfuly added movie ${theNewThing.title}`,
+        "success"
+      );
     } catch (err) {
       alert(err);
       console.log(err);
