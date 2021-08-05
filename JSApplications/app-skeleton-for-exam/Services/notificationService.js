@@ -5,6 +5,8 @@ let _container;
 let _notificationsList = [];
 let _id = 0;
 
+// this is based on bootstrap -- care it uses custom notification types...
+
 const initialize = (renderFunc, domLocation) => {
   _visualize = renderFunc;
   _container = domLocation;

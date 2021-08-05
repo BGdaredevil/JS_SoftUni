@@ -41,6 +41,11 @@ export async function registerView(ctx) {
 
       await register(newUser);
       ctx.page.redirect("/home");
+      // notifications must be after the redirect
+      // notificationService.createNotification(
+      //   `Wellcome, ${user.email}`,
+      //   "success"
+      // );
     } catch (err) {
       ctx.render(registerTemplate(form));
       notificationService.createNotification(err.message);

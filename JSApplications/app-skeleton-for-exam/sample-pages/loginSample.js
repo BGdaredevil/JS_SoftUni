@@ -35,7 +35,11 @@ export async function loginView(ctx) {
       }
 
       await login(user);
-      ctx.page.redirect("/home");
+      // notifications must be after the redirect
+      // notificationService.createNotification(
+      //   `Wellcome, ${user.email}`,
+      //   "success"
+      // );
     } catch (err) {
       ctx.render(loginTemplate(form));
       notificationService.createNotification(err.message);

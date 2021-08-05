@@ -42,6 +42,11 @@ export async function createView(ctx) {
       let theNewThing = "await reply from server";
 
       ctx.page.redirect(`/home`);
+      // notifications must be after the redirect
+      // notificationService.createNotification(
+      //   `Sucessfully changed your movie "${newMovie.title}"`,
+      //   "success"
+      // );
     } catch (err) {
       form.err = [];
       ctx.render(createTemplate(form));
