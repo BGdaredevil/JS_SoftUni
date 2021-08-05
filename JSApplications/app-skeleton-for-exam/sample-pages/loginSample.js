@@ -29,6 +29,7 @@ export async function loginView(ctx) {
 
       if (form.err.length > 0) {
         ctx.render(loginTemplate(form));
+        form.err.forEach((e) => notificationService.createNotification(e));
         form.err = [];
         return;
       }
@@ -36,8 +37,9 @@ export async function loginView(ctx) {
       await login(user);
       ctx.page.redirect("/home");
     } catch (err) {
-      form.err = [`${err.message}`];
       ctx.render(loginTemplate(form));
+      notificationService.createNotification(err.message);
+      form.err = [];
     }
   }
 }

@@ -1,11 +1,5 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
-// import { ifDefined } from "../node_modules/lit-html/directives/if-defined.js";
-// import {
-//   applyForTeam,
-//   approveAplication,
-//   createTeam,
-//   getCurrUserId,
-// } from "../Services/dataService.js";
+import notificationService from "../services/notificationService.js";
 
 const createTemplate = (form) => html``;
 
@@ -40,6 +34,7 @@ export async function createView(ctx) {
 
       if (form.err.length > 0) {
         ctx.render(createTemplate(form));
+        form.err.forEach((e) => notificationService.createNotification(e));
         form.err = [];
         return;
       }
@@ -48,7 +43,9 @@ export async function createView(ctx) {
 
       ctx.page.redirect(`/home`);
     } catch (err) {
-      form.err = [`${err.message}`];
+      form.err = [];
+      ctx.render(createTemplate(form));
+      notificationService.createNotification(err.message);
       console.log(err);
     }
   }

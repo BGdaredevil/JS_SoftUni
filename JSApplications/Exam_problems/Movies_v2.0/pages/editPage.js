@@ -1,5 +1,6 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
 import { getSpecificMovie, updateMovie } from "../services/dataService.js";
+import notificationService from "../services/notificationService.js";
 // import { ifDefined } from "../node_modules/lit-html/directives/if-defined.js";
 
 const editTemplate = (form) => html` <section id="edit-movie">
@@ -59,6 +60,7 @@ export async function editView(ctx) {
           message: "All fields are mandatory",
         };
         ctx.render(editTemplate(form));
+        notificationService.createNotification(form.err.message);
         return;
       }
 
@@ -66,7 +68,7 @@ export async function editView(ctx) {
 
       ctx.page.redirect(`/details/${form.data._id}`);
     } catch (err) {
-      alert(err);
+      notificationService.createNotification(err.message);
       console.log(err);
     }
   }

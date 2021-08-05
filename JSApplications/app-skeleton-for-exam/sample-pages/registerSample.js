@@ -34,6 +34,7 @@ export async function registerView(ctx) {
 
       if (form.err.length > 0) {
         ctx.render(registerTemplate(form));
+        form.err.forEach((e) => notificationService.createNotification(e));
         form.err = [];
         return;
       }
@@ -41,7 +42,9 @@ export async function registerView(ctx) {
       await register(newUser);
       ctx.page.redirect("/home");
     } catch (err) {
-      form.err = [err.message];
+      ctx.render(registerTemplate(form));
+      notificationService.createNotification(err.message);
+      form.err = [];
       console.log(err);
     }
   }

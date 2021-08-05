@@ -25,6 +25,8 @@ nav.settings.location = navLoc;
 
 const mainLoc = document.querySelector("main");
 
+notificationService.initialize(render, document.querySelector("div.container > div.alert"));
+
 async function decoContext(ctx, next) {
   ctx.navRender = (content) => render(content, navLoc);
   ctx.render = (content) => render(content, mainLoc);
