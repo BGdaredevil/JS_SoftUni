@@ -4,7 +4,8 @@ import { render } from "./node_modules/lit-html/lit-html.js";
 
 import * as api from "./services/apiService.js";
 
-import nav, { signOutUser } from "./pages/nav.js";
+import notificationService from "./services/notificationService.js";
+import nav from "./pages/nav.js";
 // import { homeView } from "./Pages/browse.js";
 
 //debug

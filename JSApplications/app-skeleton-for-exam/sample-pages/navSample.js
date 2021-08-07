@@ -1,5 +1,5 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
-import { getUser, isLogged, logout } from "../Services/dataService.js";
+import { getUser, isLogged, logout } from "../services/dataService.js";
 
 const settings = {
   location,
@@ -13,7 +13,7 @@ async function getView(ctx, next) {
   next();
 }
 
-export async function signOutUser(ctx) {
+async function signOutUser(ctx) {
   await logout();
   ctx.page.redirect("/home");
 }

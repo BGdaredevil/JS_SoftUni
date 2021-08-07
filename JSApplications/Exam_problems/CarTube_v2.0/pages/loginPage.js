@@ -1,7 +1,26 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
 import { login } from "../services/dataService.js";
+import notificationService from "../services/notificationService.js";
 
-const loginTemplate = (form) => html``;
+const loginTemplate = (form) => html` <section id="login">
+  <div class="container">
+    <form @submit=${form.submit} id="login-form" action="#" method="post">
+      <h1>Login</h1>
+      <p>Please enter your credentials.</p>
+      <hr />
+
+      <p>Username</p>
+      <input placeholder="Enter Username" name="username" type="text" />
+
+      <p>Password</p>
+      <input type="password" placeholder="Enter Password" name="password" />
+      <input type="submit" class="registerbtn" value="Login" />
+    </form>
+    <div class="signin">
+      <p>Dont have an account? <a href="/register">Sign up</a>.</p>
+    </div>
+  </div>
+</section>`;
 
 export async function loginView(ctx) {
   const form = { submit: onSubmit, err: [] };
@@ -14,7 +33,6 @@ export async function loginView(ctx) {
       // mind the fields -- username or email or whatever?
       const data = new FormData(e.target);
       const user = {
-        email: data.get("email").trim(),
         password: data.get("password").trim(),
         username: data.get("username").trim(),
       };
@@ -35,12 +53,9 @@ export async function loginView(ctx) {
       }
 
       await login(user);
-      ctx.page.redirect("/home");
+      ctx.page.redirect("/all-listings");
       // notifications must be after the redirect
-      // notificationService.createNotification(
-      //   `Wellcome, ${user.email}`,
-      //   "success"
-      // );
+      notificationService.createNotification(`Wellcome, ${user.username}`, "success");
     } catch (err) {
       ctx.render(loginTemplate(form));
       notificationService.createNotification(err.message);
