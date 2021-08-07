@@ -1,4 +1,6 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
+import { until } from "../node_modules/lit-html/directives/until.js";
+import { loaderTemplate } from "./commonLoader.js";
 import notificationService from "../services/notificationService.js";
 
 const createTemplate = (form) => html``;
@@ -43,10 +45,10 @@ export async function createView(ctx) {
 
       ctx.page.redirect(`/home`);
       // notifications must be after the redirect
-      // notificationService.createNotification(
-      //   `Sucessfully changed your movie "${newMovie.title}"`,
-      //   "success"
-      // );
+      notificationService.createNotification(
+        `Sucessfully changed your movie "${newMovie.title}"`,
+        "success"
+      );
     } catch (err) {
       form.err = [];
       ctx.render(createTemplate(form));

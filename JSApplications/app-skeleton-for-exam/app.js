@@ -6,7 +6,6 @@ import * as api from "./services/apiService.js";
 
 import notificationService from "./services/notificationService.js";
 import nav from "./pages/nav.js";
-// import { homeView } from "./Pages/browse.js";
 
 //debug
 window.api = api;
@@ -21,10 +20,10 @@ const baseTemplate = () => html``;
 const root = document.querySelector("body");
 render(baseTemplate(), root);
 
-const navLoc = document.querySelector("header#titlebar");
+const navLoc = root.querySelector("header#titlebar");
 nav.settings.location = navLoc;
 
-const mainLoc = document.querySelector("main");
+const mainLoc = root.querySelector("main");
 
 notificationService.initialize(render, document.querySelector("div.container > div.alert"));
 

@@ -1,5 +1,6 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
 import { login } from "../services/dataService.js";
+import notificationService from "../services/notificationService.js";
 
 const loginTemplate = (form) => html``;
 
@@ -37,10 +38,7 @@ export async function loginView(ctx) {
       await login(user);
       ctx.page.redirect("/home");
       // notifications must be after the redirect
-      // notificationService.createNotification(
-      //   `Wellcome, ${user.email}`,
-      //   "success"
-      // );
+      notificationService.createNotification(`Wellcome, ${user.email}`, "success");
     } catch (err) {
       ctx.render(loginTemplate(form));
       notificationService.createNotification(err.message);

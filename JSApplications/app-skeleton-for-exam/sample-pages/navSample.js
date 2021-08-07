@@ -5,11 +5,15 @@ const settings = {
   location,
 };
 
-const navTemplate = (isUser, currLoc, user) => html``;
+const loggedInTemplate = (currLoc, user, signOutUser) => html``;
+
+const guestTemplate = (currLoc) => html``;
+
+const navTemplate = (isUser, currLoc, user, signOutUser) => html``;
 
 async function getView(ctx, next) {
   let currLoc = ctx.path.split("/").filter((x) => x.length > 0)[0];
-  ctx.navRender(navTemplate(isLogged(), currLoc, getUser()));
+  ctx.navRender(navTemplate(isLogged(), currLoc, getUser(), signOutUser));
   next();
 }
 

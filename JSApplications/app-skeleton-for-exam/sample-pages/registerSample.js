@@ -1,6 +1,6 @@
 import { html } from "../node_modules/lit-html/lit-html.js";
-// import { ifDefined } from "../node_modules/lit-html/directives/if-defined.js";
 import { register } from "../services/dataService.js";
+import notificationService from "../services/notificationService.js";
 
 const registerTemplate = (form) => html``;
 
@@ -42,10 +42,7 @@ export async function registerView(ctx) {
       await register(newUser);
       ctx.page.redirect("/home");
       // notifications must be after the redirect
-      // notificationService.createNotification(
-      //   `Wellcome, ${user.email}`,
-      //   "success"
-      // );
+      notificationService.createNotification(`Wellcome, ${user.email}`, "success");
     } catch (err) {
       ctx.render(registerTemplate(form));
       notificationService.createNotification(err.message);
